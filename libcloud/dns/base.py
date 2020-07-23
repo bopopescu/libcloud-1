@@ -57,7 +57,7 @@ class Zone(object):
         :param domain: The name of the domain.
         :type domain: ``str``
 
-        :param type: Zone type (master, slave).
+        :param type: Zone type (main, subordinate).
         :type type: ``str``
 
         :param ttl: Default TTL for records in this zone (in seconds).
@@ -331,7 +331,7 @@ class DNSDriver(BaseDriver):
         raise NotImplementedError(
             'get_record not implemented for this driver')
 
-    def create_zone(self, domain, type='master', ttl=None, extra=None):
+    def create_zone(self, domain, type='main', ttl=None, extra=None):
         # type: (str, str, Optional[int], Optional[dict]) -> Zone
         """
         Create a new zone.
@@ -339,7 +339,7 @@ class DNSDriver(BaseDriver):
         :param domain: Zone domain name (e.g. example.com)
         :type domain: ``str``
 
-        :param type: Zone type (master / slave).
+        :param type: Zone type (main / subordinate).
         :type  type: ``str``
 
         :param ttl: TTL for new records. (optional)
@@ -356,7 +356,7 @@ class DNSDriver(BaseDriver):
     def update_zone(self,
                     zone,  # type: Zone
                     domain,  # type: Optional[str]
-                    type='master',  # type: Optional[str]
+                    type='main',  # type: Optional[str]
                     ttl=None,  # type: Optional[int]
                     extra=None  # type: Optional[dict]
                     ):
@@ -370,7 +370,7 @@ class DNSDriver(BaseDriver):
         :param domain: Zone domain name (e.g. example.com)
         :type  domain: ``str``
 
-        :param type: Zone type (master / slave).
+        :param type: Zone type (main / subordinate).
         :type  type: ``str``
 
         :param ttl: TTL for new records. (optional)
@@ -484,8 +484,8 @@ class DNSDriver(BaseDriver):
         :return: Zone data in BIND compatible format.
         :rtype: ``str``
         """
-        if zone.type != 'master':
-            raise ValueError('You can only generate BIND out for master zones')
+        if zone.type != 'main':
+            raise ValueError('You can only generate BIND out for main zones')
 
         lines = []
 

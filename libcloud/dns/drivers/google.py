@@ -149,7 +149,7 @@ class GoogleDNSDriver(DNSDriver):
         raise RecordDoesNotExistError(value='', driver=self.connection.driver,
                                       record_id=record_id)
 
-    def create_zone(self, domain, type='master', ttl=None, extra=None):
+    def create_zone(self, domain, type='main', ttl=None, extra=None):
         """
         Create a new zone.
 
@@ -157,7 +157,7 @@ class GoogleDNSDriver(DNSDriver):
                        at the end.
         :type domain: ``str``
 
-        :param type: Zone type (master is the only one supported).
+        :param type: Zone type (main is the only one supported).
         :type  type: ``str``
 
         :param ttl: TTL for new records. (unused)
@@ -362,7 +362,7 @@ class GoogleDNSDriver(DNSDriver):
         extra['id'] = r.get('id')
 
         return Zone(id=r['name'], domain=r['dnsName'],
-                    type='master', ttl=0, driver=self, extra=extra)
+                    type='main', ttl=0, driver=self, extra=extra)
 
     def _to_records(self, response, zone):
         records = []
